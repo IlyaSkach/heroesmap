@@ -1,0 +1,42 @@
+﻿<krpano bgcolor="0xffffff">
+
+	<include url="settings.xml" />
+
+	<!-- preview pano image -->
+	<preview url="tiles/preview.jpg" />
+
+	<!-- pano image -->
+	<image hfov="1.00" vfov="0.548312" voffset="0.00">
+		<flat url="tiles/l%l/%0v/l%l_%0v_%0h.jpg" multires="512,512x282,1024x562,2048x1124,4096x2248,7936x4352,16000x8774,32000x17546" />
+	</image>
+
+	<!-- Добавляем стиль для хотспотов -->
+	<style name="hotspot_style" 
+		url="vtourskin_hotspot.png"
+		scale="1.0"
+		edge="center"
+	/>
+
+	<!-- Добавляем обработчик кликов -->
+	<events name="debugevents"
+		onsingleclick="getcoordinates();"
+		keep="true"
+	/>
+
+	<action name="getcoordinates">
+		screentosphere(mouse.x, mouse.y, toh, tov);
+		roundval(toh, 4);
+		roundval(tov, 4);
+		js(console.log('Координаты для маркера: ath =', get(toh), 'atv =', get(tov)));
+	</action>
+
+	<action name="add_text_field">
+		set(hotspot[%1].html, '');
+		set(hotspot[%1].distorted, false);
+		set(hotspot[%1].css, 'color:#FFFFFF; font-family:Arial; font-size:14px; text-align:center; background-color:rgba(0,0,0,0.8); padding:5px 10px; border-radius:5px;');
+		set(hotspot[%1].vcenter, true);
+	</action>
+
+	<!-- <hotspot name="s1" ath="0" atv="0" url="vtourskin_hotspot.png" width="100" height="100"/> -->
+
+</krpano>

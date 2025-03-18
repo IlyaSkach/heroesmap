@@ -1,0 +1,387 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Montserrat", sans-serif;
+}
+
+#pano {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hotspot-label {
+  position: absolute;
+  background-color: rgba(220, 53, 69, 0.9); /* Красный цвет как на картинке */
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  display: none;
+  z-index: 1000;
+  pointer-events: none;
+  transform: translateX(-50%) scale(0);
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+}
+
+.hotspot-label.visible {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+/* Добавляем стили для звезды */
+.hotspot-label::before {
+  content: "★"; /* Звезда */
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+#pano {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: width 0.3s ease-in-out;
+}
+
+.person-card {
+  position: absolute;
+  right: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(180deg, #87817b 0%, #ede3d8 12.5%);
+  transition: right 0.3s ease-in-out;
+  padding: 20px 40px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.person-card.active {
+  right: 0;
+}
+
+#pano.shifted {
+  width: 60%;
+}
+
+.back-button {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  color: #000;
+  font-size: 14px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  margin-top: 40px;
+}
+
+.person-name {
+  font-family: "Unbounded", cursive;
+  font-size: 27px;
+  font-weight: 900;
+  margin: 0;
+}
+
+/* .star-rating {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  background-color: #dc3545;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+} */
+
+.hero-score-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.score-star {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-score {
+  background: #ffd700;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-family: "Unbounded", cursive;
+  font-weight: 700;
+  font-size: 14px;
+  position: absolute;
+  right: -27px;
+  top: -5px;
+  z-index: 2;
+}
+
+.star-rating {
+  display: none;
+  /* background: #ffd700;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-family: "Unbounded", cursive;
+  font-weight: 700;
+  font-size: 14px;
+  position: absolute;
+  right: -27px;
+  top: -5px;
+  z-index: 2; */
+}
+
+.person-info {
+  display: flex;
+  justify-content: flex-start;
+  gap: 140px;
+}
+
+.info-row {
+  margin-bottom: 20px;
+}
+
+.info-row h3 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  margin: 0;
+  font-size: 16px;
+  color: #000000;
+}
+
+.info-row p {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  margin: 5px 0 0;
+  font-size: 12px;
+}
+
+.person-image {
+  width: 100%;
+  padding-bottom: 56.25%; /* Соотношение сторон 16:9 */
+  background: url("./images/bgimg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  margin: 20px 0;
+  position: relative;
+  overflow: hidden; /* Добавляем для ограничения размытого фона */
+}
+
+/* Добавляем новый псевдоэлемент для размытого фона */
+.person-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("./images/bgimg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(4px);
+  z-index: 0;
+}
+
+.person-image::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("./images/Ivan_Petrov.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.navigation {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 34.5%;
+  background-color: #ede3d8;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+/* Добавляем новый стиль для фиксированной навигации при активной карточке */
+.person-card.active .navigation {
+  position: fixed;
+  width: 40%;
+  box-sizing: border-box;
+}
+
+.prev-button,
+.next-button {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 10px 20px;
+  border: none;
+  background: none;
+  color: #000000;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: opacity 0.3s ease;
+}
+
+.prev-button.disabled,
+.next-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+/* Обновляем стили для секции видео */
+.videos-section {
+  margin: 20px -20px; /* Отрицательный margin чтобы компенсировать padding карточки */
+  padding: 0 20px; /* Возвращаем padding для нормального вида */
+  position: relative; /* Для правильного позиционирования */
+}
+
+.videos-section h3 {
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.videos-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding: 20px 20px; /* Увеличиваем padding чтобы видео при увеличении не обрезались */
+  scrollbar-width: thin;
+  scrollbar-color: #dc3545 #f0f0f0;
+  margin: -20px -20px; /* Компенсируем padding контейнера */
+}
+
+/* Обновляем стили скроллбара */
+.videos-container::-webkit-scrollbar {
+  height: 8px;
+  margin-top: 10px; /* Отступ от видео */
+}
+
+.videos-container::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+  margin: 0 20px; /* Отступы по краям */
+}
+
+.videos-container::-webkit-scrollbar-thumb {
+  background: #dc3545;
+  border-radius: 4px;
+}
+
+.video-thumbnail {
+  position: relative;
+  min-width: 200px;
+  height: 120px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #dc3545;
+  transition: all 0.3s ease;
+  transform-origin: center center; /* Центрируем точку трансформации */
+}
+
+.video-thumbnail:hover {
+  transform: scale(1.15); /* Увеличиваем масштаб */
+  z-index: 10; /* Поднимаем над остальными элементами */
+  box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3); /* Добавляем тень */
+}
+
+.video-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-thumbnail::after {
+  content: "▶";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Стили для модального окна */
+.video-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+}
+
+.video-modal.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  position: relative;
+  width: 80%;
+  max-width: 1000px;
+}
+
+.close-modal {
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+#video-player {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.person-description {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
