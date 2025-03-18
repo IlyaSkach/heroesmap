@@ -95,5 +95,41 @@ export const hotspotData = [
       },
     ],
   },
+
+  {
+    id: 4,
+    name: "ИВАН ИВАНОВ",
+    ath: -0.0138,
+    atv: 0.1219,
+    description:
+      "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ",
+    profession: "Врач",
+    region: "Красноярск",
+		image: "images/Ivan_Petrov.png",
+    rating: 57,
+		videos: [
+      {
+        id: 1,
+        thumbnail: "thumbnails/video1.jpg",
+        videoUrl: "videos/video1.mp4",
+        title: "Название видео 1",
+      },
+      {
+        id: 2,
+        thumbnail: "thumbnails/video2.jpg",
+        videoUrl: "videos/video2.mp4",
+        title: "Название видео 2",
+      },
+      {
+        id: 3,
+        thumbnail: "thumbnails/video3.jpg",
+        videoUrl: "videos/video3.mp4",
+        title: "Название видео 3",
+      },
+    ],
+  },
 	
 ];
+
+
+

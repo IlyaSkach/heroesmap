@@ -16,7 +16,7 @@ body {
 
 .hotspot-label {
   position: absolute;
-  background-color: rgba(220, 53, 69, 0.9); /* Красный цвет как на картинке */
+  background-color: rgba(220, 53, 69, 0.9);
   color: white;
   padding: 8px 15px;
   border-radius: 5px;
@@ -24,17 +24,18 @@ body {
   font-size: 14px;
   font-weight: 600;
   white-space: nowrap;
-  display: none;
+  display: block;
   z-index: 1000;
   pointer-events: none;
-  transform: translateX(-50%) scale(0);
-  transition: all 0.3s ease-in-out;
+  transform: translateX(-50%);
   opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .hotspot-label.visible {
-  transform: translateX(-50%) scale(1);
   opacity: 1;
+  visibility: visible;
 }
 
 /* Добавляем стили для звезды */
@@ -56,7 +57,6 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: width 0.3s ease-in-out;
 }
 
 .person-card {
@@ -65,7 +65,7 @@ body {
   width: 40%;
   height: 100%;
   background: linear-gradient(180deg, #87817b 0%, #ede3d8 12.5%);
-  transition: right 0.3s ease-in-out;
+  transition: right 0.5s ease-in-out;
   padding: 20px 40px;
   box-sizing: border-box;
   overflow-y: auto;
@@ -73,10 +73,6 @@ body {
 
 .person-card.active {
   right: 0;
-}
-
-#pano.shifted {
-  width: 60%;
 }
 
 .back-button {
@@ -268,9 +264,11 @@ body {
 
 /* Обновляем стили для секции видео */
 .videos-section {
-  margin: 20px -20px; /* Отрицательный margin чтобы компенсировать padding карточки */
-  padding: 0 20px; /* Возвращаем padding для нормального вида */
-  position: relative; /* Для правильного позиционирования */
+  margin: 20px -40px; /* Увеличиваем отступ до размера padding карточки */
+  padding: 0 40px;
+  position: relative;
+  padding-bottom: 20px;
+  margin-bottom: 60px; /* Добавляем отступ для навигационных кнопок */
 }
 
 .videos-section h3 {
@@ -282,22 +280,22 @@ body {
   display: flex;
   overflow-x: auto;
   gap: 15px;
-  padding: 20px 20px; /* Увеличиваем padding чтобы видео при увеличении не обрезались */
+  padding: 20px 0; /* Убираем горизонтальные padding */
   scrollbar-width: thin;
   scrollbar-color: #dc3545 #f0f0f0;
-  margin: -20px -20px; /* Компенсируем padding контейнера */
+  margin: 0; /* Убираем отрицательные margin */
+  width: 100%;
 }
 
 /* Обновляем стили скроллбара */
 .videos-container::-webkit-scrollbar {
   height: 8px;
-  margin-top: 10px; /* Отступ от видео */
+  margin-top: 10px;
 }
 
 .videos-container::-webkit-scrollbar-track {
   background: #f0f0f0;
   border-radius: 4px;
-  margin: 0 20px; /* Отступы по краям */
 }
 
 .videos-container::-webkit-scrollbar-thumb {
@@ -314,7 +312,8 @@ body {
   cursor: pointer;
   border: 2px solid #dc3545;
   transition: all 0.3s ease;
-  transform-origin: center center; /* Центрируем точку трансформации */
+  transform-origin: center center;
+  flex-shrink: 0; /* Предотвращаем сжатие миниатюр */
 }
 
 .video-thumbnail:hover {
@@ -397,10 +396,6 @@ body {
     right: 0;
   }
 
-  #pano.shifted {
-    width: 50%;
-  }
-
   .navigation {
     width: 44.5%;
   }
@@ -419,14 +414,11 @@ body {
     width: 70%;
     right: -70%;
     padding: 15px 20px;
+    overflow-x: hidden; /* Запрещаем горизонтальный скролл */
   }
 
   .person-card.active {
     right: 0;
-  }
-
-  #pano.shifted {
-    width: 30%;
   }
 
   .navigation {
@@ -460,6 +452,38 @@ body {
     width: 45px;
     height: 45px;
   }
+
+  .videos-section {
+    margin: 20px -20px;
+    padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    margin-bottom: 80px; /* Увеличиваем нижний отступ */
+  }
+
+  .videos-container {
+    width: calc(100% + 40px);
+    margin: 0 -20px;
+    padding: 20px;
+    padding-bottom: 30px; /* Добавляем отступ снизу */
+    box-sizing: border-box;
+  }
+
+  /* Добавляем новое правило для скрытия плашки при активной карточке на мобильных */
+  .person-card.active ~ .hotspot-label,
+  .person-card.active + .hotspot-label {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+
+  .hotspot-label {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -467,14 +491,11 @@ body {
     width: 100%;
     right: -100%;
     padding: 10px 15px;
+    overflow-x: hidden;
   }
 
   .person-card.active {
     right: 0;
-  }
-
-  #pano.shifted {
-    width: 0;
   }
 
   .navigation {
@@ -514,8 +535,23 @@ body {
   }
 
   .hotspot-label {
+    transform-origin: left center;
+    white-space: nowrap;
     font-size: 12px;
     padding: 6px 12px;
+  }
+
+  .videos-section {
+    margin: 20px -15px;
+    padding: 0 15px;
+    margin-bottom: 80px; /* Увеличиваем нижний отступ */
+  }
+
+  .videos-container {
+    width: calc(100% + 30px);
+    margin: 0 -15px;
+    padding: 20px 15px;
+    padding-bottom: 30px; /* Добавляем отступ снизу */
   }
 }
 
@@ -528,18 +564,6 @@ body {
 
   .person-card.active {
     right: 0;
-  }
-
-  #pano.shifted {
-    width: 40%;
-  }
-
-  .navigation {
-    width: 54.5%;
-  }
-
-  .person-card.active .navigation {
-    width: 60%;
   }
 
   .person-image {
@@ -562,4 +586,15 @@ body {
   .hotspot-label {
     font-weight: 500; /* Делаем шрифт чуть тоньше для лучшей читаемости */
   }
+}
+
+/* Стиль для маркера в обычном состоянии */
+.hotspot {
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+
+/* Стиль для маркера после нажатия */
+.hotspot.clicked {
+  transform: scale(0.7);
 }

@@ -5,6 +5,9 @@ let globalKrpano;
 // Добавляем глобальную переменную для текущего индекса
 let currentPersonIndex = 0;
 
+// Добавим глобальную переменную для хранения активного лейбла
+let activeLabel = null;
+
 embedpano({
   xml: "pano.xml",
   target: "pano",
@@ -13,6 +16,11 @@ embedpano({
   onready: function (krpano) {
     console.log("krpano загружен и готов");
     globalKrpano = krpano;
+
+    // Добавляем обработчик обновления
+    krpano.set("onviewchange", function () {
+      updateActiveLabelPosition();
+    });
 
     setTimeout(() => {
       if (!krpano) {
@@ -44,33 +52,38 @@ embedpano({
           const label = document.createElement("div");
           label.className = "hotspot-label";
           label.innerHTML = person.name;
+          label.setAttribute("data-hotspot-id", "spot" + person.id);
 
           // Обработчики наведения с анимацией
           hs.onover = () => {
-            hs.scale = 1.3;
+            if (activeLabel !== label) {
+              // Показываем только если это не активный лейбл
+              hs.scale = 1.3;
 
-            // Получаем экранные координаты хотспота
-            let screenpos = krpano.spheretoscreen(hs.ath, hs.atv);
-            if (screenpos) {
-              label.style.display = "block";
-              label.style.left = screenpos.x + "px";
-              label.style.top = screenpos.y - 40 + "px";
+              // Получаем экранные координаты хотспота
+              let screenpos = krpano.spheretoscreen(hs.ath, hs.atv);
+              if (screenpos) {
+                label.style.display = "block";
+                label.style.left = screenpos.x + "px";
+                label.style.top = screenpos.y - 40 + "px";
 
-              // Добавляем небольшую задержку для анимации
-              setTimeout(() => {
-                label.classList.add("visible");
-              }, 10);
+                setTimeout(() => {
+                  label.classList.add("visible");
+                }, 10);
+              }
             }
           };
 
           hs.onout = () => {
-            hs.scale = 1.0;
-            label.classList.remove("visible");
+            if (activeLabel !== label) {
+              // Скрываем только если это не активный лейбл
+              hs.scale = 1.0;
+              label.classList.remove("visible");
 
-            // Ждем окончания анимации перед скрытием
-            setTimeout(() => {
-              label.style.display = "none";
-            }, 300);
+              setTimeout(() => {
+                label.style.display = "none";
+              }, 300);
+            }
           };
 
           // Добавляем текстовый элемент на страницу
@@ -81,8 +94,26 @@ embedpano({
             atv: hs.atv,
           });
 
-          // В обработчике клика хотспота добавим:
+          // В обработчике клика хотспота:
           hs.onclick = () => {
+            // Если был активный лейбл, скрываем его
+            if (activeLabel && activeLabel !== label) {
+              activeLabel.classList.remove("visible");
+              activeLabel.style.display = "none";
+            }
+
+            // Устанавливаем новый активный лейбл
+            activeLabel = label;
+
+            // Показываем лейбл
+            let screenpos = krpano.spheretoscreen(hs.ath, hs.atv);
+            if (screenpos) {
+              label.style.display = "block";
+              label.style.left = screenpos.x + "px";
+              label.style.top = screenpos.y - 40 + "px";
+              label.classList.add("visible");
+            }
+
             const personIndex = hotspotData.findIndex(
               (p) => p.id === person.id
             );
@@ -125,10 +156,15 @@ function getClickCoordinates() {
 // Добавляем обработчик для кнопки "Назад"
 document.querySelector(".back-button").addEventListener("click", (e) => {
   e.preventDefault();
-  const panoElement = document.getElementById("pano");
   const cardElement = document.querySelector(".person-card");
 
-  panoElement.classList.remove("shifted");
+  // Скрываем активный лейбл при закрытии карточки
+  if (activeLabel) {
+    activeLabel.classList.remove("visible");
+    activeLabel.style.display = "none";
+    activeLabel = null;
+  }
+
   cardElement.classList.remove("active");
 });
 
@@ -141,9 +177,59 @@ document.querySelector(".close-modal").addEventListener("click", () => {
   videoPlayer.src = "";
 });
 
+// Добавим функцию обновления позиции активного лейбла
+function updateActiveLabelPosition() {
+  if (activeLabel && globalKrpano) {
+    const activeHotspot = globalKrpano.get(
+      `hotspot[spot${hotspotData[currentPersonIndex].id}]`
+    );
+    if (activeHotspot) {
+      let screenpos = globalKrpano.spheretoscreen(
+        activeHotspot.ath,
+        activeHotspot.atv
+      );
+      if (screenpos) {
+        activeLabel.style.left = screenpos.x + "px";
+        activeLabel.style.top = screenpos.y - 40 + "px";
+      }
+    }
+  }
+}
+
 // Функция для отображения карточки персонажа
 function showPersonCard(person, index) {
-  const panoElement = document.getElementById("pano");
+  // Находим новый лейбл
+  const newLabel = document.querySelector(
+    `.hotspot-label[data-hotspot-id="spot${person.id}"]`
+  );
+
+  // Если был активный лейбл и это другая карточка, просто скрываем его
+  if (activeLabel && activeLabel !== newLabel) {
+    activeLabel.classList.remove("visible");
+    activeLabel.style.display = "none";
+  }
+
+  // Устанавливаем новый активный лейбл
+  activeLabel = newLabel;
+
+  // Показываем новый лейбл сразу
+  if (activeLabel) {
+    const hotspot = globalKrpano.get(`hotspot[spot${person.id}]`);
+    if (hotspot) {
+      let screenpos = globalKrpano.spheretoscreen(hotspot.ath, hotspot.atv);
+      if (screenpos) {
+        activeLabel.style.display = "block";
+        activeLabel.style.left = screenpos.x + "px";
+        activeLabel.style.top = screenpos.y - 40 + "px";
+        activeLabel.classList.add("visible");
+      }
+    }
+  }
+
+  // Обновляем текущий индекс
+  currentPersonIndex = index;
+
+  // Заполняем данные
   const cardElement = document.querySelector(".person-card");
   const nameElement = cardElement.querySelector(".person-name");
   const regionElement = cardElement.querySelector(".person-region");
@@ -152,10 +238,6 @@ function showPersonCard(person, index) {
   const imageElement = cardElement.querySelector(".person-image");
   const starRating = cardElement.querySelector(".star-rating");
 
-  // Обновляем текущий индекс
-  currentPersonIndex = index;
-
-  // Заполняем данные
   nameElement.textContent = person.name;
   regionElement.textContent = person.region;
   professionElement.textContent = person.profession;
@@ -189,8 +271,7 @@ function showPersonCard(person, index) {
     videosContainer.appendChild(thumbnail);
   });
 
-  // Анимируем появление
-  panoElement.classList.add("shifted");
+  // Только добавляем класс active для карточки
   cardElement.classList.add("active");
 
   // Обновляем состояние кнопок навигации
@@ -212,12 +293,30 @@ function updateNavigation() {
 // Обработчики для кнопок навигации
 document.querySelector(".prev-button").addEventListener("click", () => {
   if (currentPersonIndex > 0) {
-    showPersonCard(hotspotData[currentPersonIndex - 1], currentPersonIndex - 1);
+    const prevPerson = hotspotData[currentPersonIndex - 1];
+    // Сначала анимируем камеру к метке
+    globalKrpano.call(
+      `lookto(${prevPerson.ath}, ${prevPerson.atv}, 20, tween(easeInOutQuad, 0.5))`
+    );
+
+    // Затем показываем карточку с небольшой задержкой
+    setTimeout(() => {
+      showPersonCard(prevPerson, currentPersonIndex - 1);
+    }, 500);
   }
 });
 
 document.querySelector(".next-button").addEventListener("click", () => {
   if (currentPersonIndex < hotspotData.length - 1) {
-    showPersonCard(hotspotData[currentPersonIndex + 1], currentPersonIndex + 1);
+    const nextPerson = hotspotData[currentPersonIndex + 1];
+    // Сначала анимируем камеру к метке
+    globalKrpano.call(
+      `lookto(${nextPerson.ath}, ${nextPerson.atv}, 20, tween(easeInOutQuad, 0.5))`
+    );
+
+    // Затем показываем карточку с небольшой задержкой
+    setTimeout(() => {
+      showPersonCard(nextPerson, currentPersonIndex + 1);
+    }, 500);
   }
 });
