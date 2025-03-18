@@ -385,3 +385,181 @@ body {
   font-weight: 400;
   line-height: 1.5;
 }
+
+/* Медиа-запросы для адаптивности */
+@media screen and (max-width: 1024px) {
+  .person-card {
+    width: 50%;
+    right: -50%;
+  }
+
+  .person-card.active {
+    right: 0;
+  }
+
+  #pano.shifted {
+    width: 50%;
+  }
+
+  .navigation {
+    width: 44.5%;
+  }
+
+  .person-card.active .navigation {
+    width: 50%;
+  }
+
+  .person-info {
+    gap: 40px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .person-card {
+    width: 70%;
+    right: -70%;
+    padding: 15px 20px;
+  }
+
+  .person-card.active {
+    right: 0;
+  }
+
+  #pano.shifted {
+    width: 30%;
+  }
+
+  .navigation {
+    width: 64.5%;
+    padding: 15px 20px;
+  }
+
+  .person-card.active .navigation {
+    width: 70%;
+  }
+
+  .person-name {
+    font-size: 22px;
+  }
+
+  .person-info {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .videos-container {
+    gap: 10px;
+  }
+
+  .video-thumbnail {
+    min-width: 160px;
+    height: 100px;
+  }
+
+  .hero-score-container .score-star {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .person-card {
+    width: 100%;
+    right: -100%;
+    padding: 10px 15px;
+  }
+
+  .person-card.active {
+    right: 0;
+  }
+
+  #pano.shifted {
+    width: 0;
+  }
+
+  .navigation {
+    width: 94.5%;
+    padding: 10px 15px;
+  }
+
+  .person-card.active .navigation {
+    width: 100%;
+  }
+
+  .person-name {
+    font-size: 20px;
+  }
+
+  .info-row h3 {
+    font-size: 14px;
+  }
+
+  .info-row p {
+    font-size: 11px;
+  }
+
+  .video-thumbnail {
+    min-width: 140px;
+    height: 90px;
+  }
+
+  .hero-score-container .score-star {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero-score {
+    font-size: 12px;
+    right: -20px;
+  }
+
+  .hotspot-label {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+/* Добавляем поддержку ландшафтной ориентации для мобильных устройств */
+@media screen and (max-height: 480px) and (orientation: landscape) {
+  .person-card {
+    width: 60%;
+    right: -60%;
+  }
+
+  .person-card.active {
+    right: 0;
+  }
+
+  #pano.shifted {
+    width: 40%;
+  }
+
+  .navigation {
+    width: 54.5%;
+  }
+
+  .person-card.active .navigation {
+    width: 60%;
+  }
+
+  .person-image {
+    padding-bottom: 30%; /* Уменьшаем высоту изображения */
+  }
+
+  .videos-container {
+    gap: 10px;
+  }
+
+  .video-thumbnail {
+    min-width: 140px;
+    height: 80px;
+  }
+}
+
+/* Добавляем стили для устройств с высоким DPI */
+@media screen and (-webkit-min-device-pixel-ratio: 2),
+  screen and (min-resolution: 192dpi) {
+  .hotspot-label {
+    font-weight: 500; /* Делаем шрифт чуть тоньше для лучшей читаемости */
+  }
+}
