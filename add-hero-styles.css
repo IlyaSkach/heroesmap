@@ -1,0 +1,381 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Montserrat", sans-serif;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+#pano {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.add-hero-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.add-hero-button::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url("images/star-score.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: brightness(0) invert(1);
+}
+
+.add-hero-button:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.add-hero-button:hover::before {
+  animation: rotateStar 2s ease;
+}
+
+@keyframes rotateStar {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.add-hero-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 768px) {
+  .add-hero-button {
+    /* bottom: 20px;
+    right: 20px; */
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+}
+
+/* Изменяем стили для первого модального окна */
+#selectPointModal {
+  pointer-events: none; /* Позволяет кликать сквозь модальное окно */
+}
+
+#selectPointModal .modal-content {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #87817b 0%, #ede3d8 12.5%);
+  padding: 20px;
+  border-radius: 15px;
+  pointer-events: auto; /* Возвращаем события клика только для содержимого */
+}
+
+/* Стили для второго модального окна остаются прежними */
+#heroFormModal {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#heroFormModal .modal-content {
+  max-height: 90vh; /* Максимальная высота 90% от высоты экрана */
+  overflow-y: auto; /* Добавляем вертикальный скролл */
+  padding-bottom: 20px; /* Добавляем отступ снизу */
+}
+
+/* Стилизуем скроллбар */
+#heroFormModal .modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+#heroFormModal .modal-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+#heroFormModal .modal-content::-webkit-scrollbar-thumb {
+  background: #dc3545;
+  border-radius: 4px;
+}
+
+.modal.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: linear-gradient(180deg, #87817b 0%, #ede3d8 12.5%);
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal h2 {
+  font-family: "Unbounded", sans-serif;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.coordinates-info {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.coordinate {
+  font-family: "Montserrat", sans-serif;
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+.form-group input {
+  width: 85%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  font-family: "Unbounded", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-buttons button[type="button"] {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.modal-buttons button[type="submit"] {
+  background-color: #dc3545; /* Теперь красная, как остальные */
+}
+
+.modal-buttons button:hover {
+  transform: translateY(-2px);
+}
+
+textarea {
+  width: 85%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: "Montserrat", sans-serif;
+  resize: vertical;
+}
+
+.videos-container {
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.videos-container h3 {
+  font-family: "Unbounded", sans-serif;
+  margin-bottom: 15px;
+}
+
+.video-item {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.add-video-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  font-family: "Unbounded", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.add-video-btn:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+/* Общие стили для всех кнопок в модальных окнах */
+.modal button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal button:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для кнопки "Отмена" */
+.modal button[type="button"] {
+  background-color: #6c757d;
+}
+
+.modal button[type="button"]:hover {
+  background-color: #5a6268;
+}
+
+/* Стили для модального окна успеха */
+.success-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 3000;
+  justify-content: center;
+  align-items: center;
+}
+
+.success-modal.active {
+  display: flex;
+}
+
+.success-modal .modal-content {
+  background: linear-gradient(180deg, #87817b 0%, #ede3d8 12.5%);
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.success-icon {
+  margin-bottom: 20px;
+}
+
+.success-marker {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Медиа-запросы для мобильных устройств */
+@media screen and (max-width: 768px) {
+  #heroFormModal .modal-content {
+    max-height: 80vh;
+    padding: 20px;
+    margin: 20px;
+    width: calc(100% - 40px);
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 16px; /* Увеличиваем размер шрифта для лучшего ввода на мобильных */
+  }
+
+  .modal-buttons {
+    position: sticky;
+    bottom: 0;
+    background: linear-gradient(180deg, #87817b 0%, #ede3d8 12.5%);
+    padding-top: 15px;
+    margin-top: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #heroFormModal .modal-content {
+    max-height: 85vh;
+    padding: 15px;
+    margin: 15px;
+  }
+}

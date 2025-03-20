@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Добавить героя</title>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta http-equiv="x-ua-compatible" content="IE=edge" />
+	<link rel="stylesheet" href="add-hero-styles.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Unbounded:wght@400;500;700&display=swap"
+		rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+		<div id="pano"></div>
+		<button class="add-hero-button">Добавить героя</button>
+	</div>
+
+	<!-- Первое модальное окно с инструкцией -->
+	<div class="modal" id="selectPointModal">
+		<div class="modal-content">
+			<h2>Выберите место на карте</h2>
+			<p>Кликните на панораме, чтобы указать расположение героя</p>
+			<button id="cancelSelection" class="modal-button">Отмена</button>
+		</div>
+	</div>
+
+	<!-- Второе модальное окно с формой -->
+	<div class="modal" id="heroFormModal">
+		<div class="modal-content">
+			<h2>Информация о герое</h2>
+			<form id="heroForm">
+				<div class="coordinates-info">
+					<p>Координаты точки:</p>
+					<div class="coordinate">ATH: <span id="athValue">-</span></div>
+					<div class="coordinate">ATV: <span id="atvValue">-</span></div>
+				</div>
+				<div class="form-group">
+					<label for="heroName">Имя героя:</label>
+					<input type="text" id="heroName" required>
+				</div>
+				<div class="form-group">
+					<label for="heroProfession">Профессия:</label>
+					<input type="text" id="heroProfession" required>
+				</div>
+				<div class="form-group">
+					<label for="heroRegion">Регион:</label>
+					<input type="text" id="heroRegion" required>
+				</div>
+				<div class="form-group">
+					<label for="heroDescription">Описание:</label>
+					<textarea id="heroDescription" required rows="4"></textarea>
+				</div>
+				<div class="modal-buttons">
+					<button type="button" id="cancelForm">Отмена</button>
+					<button type="submit">Сохранить</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Добавьте перед закрывающим тегом body -->
+	<div class="success-modal" id="successModal">
+		<div class="modal-content">
+			<div class="success-icon">
+				<img src="images/marker.png" alt="marker" class="success-marker">
+			</div>
+			<h2>Герой успешно добавлен!</h2>
+		</div>
+	</div>
+
+	<script src="pano.js"></script>
+	<script type="module" src="add-hero.js"></script>
+</body>
+
+</html>

@@ -598,3 +598,178 @@ body {
 .hotspot.clicked {
   transform: scale(0.7);
 }
+
+/* Обновляем стили для кнопки добавления героя */
+.add-hero-link {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.add-hero-link button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-family: "Unbounded", sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Добавляем медиа-запросы для мобильных устройств */
+@media screen and (max-width: 768px) {
+  .add-hero-link {
+    top: 15px;
+    left: 15px;
+  }
+
+  .add-hero-link button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .button-star {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .add-hero-link {
+    top: 10px;
+    left: 10px;
+  }
+
+  .add-hero-link button {
+    padding: 6px 14px;
+    font-size: 11px;
+  }
+
+  .button-star {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Стили для иконки звезды */
+.button-star {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* Делаем звезду белой */
+  transition: transform 0.3s ease;
+}
+
+/* Обновляем анимацию вращения при наведении */
+.add-hero-link button:hover .button-star {
+  animation: rotateStar 2s ease; /* Увеличиваем время с 1s до 2s */
+}
+
+@keyframes rotateStar {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.add-hero-link button:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для модального окна с паролем */
+.password-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+.password-modal.active {
+  display: flex;
+}
+
+.password-modal .modal-content {
+  background: linear-gradient(180deg, #87817b 0%, #ede3d8 12.5%);
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Убираем старый белый фон, если он был */
+.password-modal .modal-content {
+  background-color: transparent;
+}
+
+.password-modal h2 {
+  font-family: "Unbounded", sans-serif;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.password-modal input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: "Montserrat", sans-serif;
+  box-sizing: border-box;
+}
+
+.error-message {
+  color: #dc3545;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  margin: 10px 0;
+  min-height: 20px;
+}
+
+.password-modal .modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.password-modal button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  font-family: "Unbounded", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.password-modal button:first-child {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.password-modal button:last-child {
+  background-color: #dc3545;
+  color: white;
+}
+
+.password-modal button:hover {
+  transform: translateY(-2px);
+}

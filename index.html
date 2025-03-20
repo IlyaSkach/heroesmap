@@ -20,6 +20,27 @@
 </head>
 
 <body>
+	<!-- Добавляем кнопку и модальное окно -->
+	<div class="add-hero-link">
+		<button id="addHeroBtn">
+			<img src="images/star-score.svg" alt="star" class="button-star">
+			Добавить нового героя
+		</button>
+	</div>
+
+	<!-- Модальное окно для пароля -->
+	<div class="password-modal" id="passwordModal">
+		<div class="modal-content">
+			<h2>Введите пароль</h2>
+			<input type="password" id="passwordInput" placeholder="Введите пароль">
+			<div class="error-message" id="errorMessage"></div>
+			<div class="modal-buttons">
+				<button id="cancelPasswordBtn">Отмена</button>
+				<button id="submitPasswordBtn">Подтвердить</button>
+			</div>
+		</div>
+	</div>
+
 	<div class="container">
 		<div id="pano"></div>
 		<div class="person-card">

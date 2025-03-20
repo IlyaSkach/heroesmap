@@ -8,6 +8,56 @@ let currentPersonIndex = 0;
 // Добавим глобальную переменную для хранения активного лейбла
 let activeLabel = null;
 
+document.addEventListener("DOMContentLoaded", () => {
+  const addHeroBtn = document.getElementById("addHeroBtn");
+  const passwordModal = document.getElementById("passwordModal");
+  const passwordInput = document.getElementById("passwordInput");
+  const errorMessage = document.getElementById("errorMessage");
+  const cancelPasswordBtn = document.getElementById("cancelPasswordBtn");
+  const submitPasswordBtn = document.getElementById("submitPasswordBtn");
+
+  // Показываем модальное окно при клике на кнопку
+  addHeroBtn.addEventListener("click", () => {
+    passwordModal.classList.add("active");
+    passwordInput.value = ""; // Очищаем поле пароля
+    errorMessage.textContent = ""; // Очищаем сообщение об ошибке
+  });
+
+  // Закрываем модальное окно при клике на "Отмена"
+  cancelPasswordBtn.addEventListener("click", () => {
+    passwordModal.classList.remove("active");
+  });
+
+  // Проверяем пароль при подтверждении
+  submitPasswordBtn.addEventListener("click", checkPassword);
+
+  // Добавляем обработку клавиши Enter
+  passwordInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      checkPassword();
+    }
+  });
+
+  function checkPassword() {
+    const password = passwordInput.value;
+
+    if (password === "admin") {
+      // Правильный пароль
+      window.location.href = "add-hero.html";
+    } else {
+      // Неправильный пароль
+      errorMessage.textContent = "Нет доступа";
+      passwordInput.value = ""; // Очищаем поле пароля
+
+      // Добавляем анимацию встряхивания
+      errorMessage.style.animation = "shake 0.5s";
+      setTimeout(() => {
+        errorMessage.style.animation = "";
+      }, 500);
+    }
+  }
+});
+
 embedpano({
   xml: "pano.xml",
   target: "pano",

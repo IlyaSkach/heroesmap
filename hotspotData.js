@@ -40,9 +40,9 @@ export const hotspotData = [
       "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ",
     profession: "Врач",
     region: "Казань",
-		image: "images/Ivan_Petrov.png",
+    image: "images/Ivan_Petrov.png",
     rating: 57,
-		videos: [
+    videos: [
       {
         id: 1,
         thumbnail: "thumbnails/video1.jpg",
@@ -72,9 +72,9 @@ export const hotspotData = [
       "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ",
     profession: "Инженер",
     region: "Екатеренбург",
-		image: "images/Ivan_Petrov.png",
+    image: "images/Ivan_Petrov.png",
     rating: 58,
-		videos: [
+    videos: [
       {
         id: 1,
         thumbnail: "thumbnails/video1.jpg",
@@ -105,9 +105,9 @@ export const hotspotData = [
       "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ",
     profession: "Врач",
     region: "Красноярск",
-		image: "images/Ivan_Petrov.png",
+    image: "images/Ivan_Petrov.png",
     rating: 57,
-		videos: [
+    videos: [
       {
         id: 1,
         thumbnail: "thumbnails/video1.jpg",
@@ -128,8 +128,4 @@ export const hotspotData = [
       },
     ],
   },
-	
 ];
-
-
-
