@@ -8,6 +8,7 @@ let currentPersonIndex = 0;
 // Добавим глобальную переменную для хранения активного лейбла
 let activeLabel = null;
 
+// Добавляем обработчики для модального окна с паролем
 document.addEventListener("DOMContentLoaded", () => {
   const addHeroBtn = document.getElementById("addHeroBtn");
   const passwordModal = document.getElementById("passwordModal");
@@ -146,6 +147,9 @@ embedpano({
 
           // В обработчике клика хотспота:
           hs.onclick = () => {
+            globalKrpano.call(
+              `lookto(${hs.ath}, ${hs.atv}, 0.1, tween(easeInOutQuad, 0.5), true, true)`
+            );
             // Если был активный лейбл, скрываем его
             if (activeLabel && activeLabel !== label) {
               activeLabel.classList.remove("visible");
@@ -303,23 +307,57 @@ function showPersonCard(person, index) {
   const videosContainer = cardElement.querySelector(".videos-container");
   videosContainer.innerHTML = "";
 
-  person.videos.forEach((video) => {
-    const thumbnail = document.createElement("div");
-    thumbnail.className = "video-thumbnail";
-    thumbnail.style.backgroundImage = `url(${video.thumbnail})`;
-    thumbnail.setAttribute("data-video", video.videoUrl);
-    thumbnail.setAttribute("data-title", video.title);
+  // Создаем контейнер для трех видео
+  for (let i = 0; i < 3; i++) {
+    const videoWrapper = document.createElement("div");
+    videoWrapper.className = "video-wrapper";
 
-    thumbnail.onclick = () => {
-      const modal = document.querySelector(".video-modal");
-      const videoPlayer = document.getElementById("video-player");
-      videoPlayer.src = video.videoUrl;
-      modal.classList.add("active");
-      videoPlayer.play();
+    videoWrapper.innerHTML = `
+      <iframe
+        src="https://rutube.ru/play/embed/323cd8e74b1e344ab274858c53d328e5"
+        width="280"
+        height="157"
+        frameborder="0"
+        allow="clipboard-write; autoplay; fullscreen"
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen
+      ></iframe>
+    `;
+
+    videosContainer.appendChild(videoWrapper);
+  }
+
+  // Обновляем ссылки социальных сетей
+  const socialIcons = cardElement.querySelectorAll(".social-icon");
+
+  // Скрываем все иконки по умолчанию
+  socialIcons.forEach((icon) => {
+    icon.style.display = "none";
+  });
+
+  // Показываем только те иконки, для которых есть ссылки
+  if (person.social) {
+    const socialMap = {
+      telegram: "iconsTG.svg",
+      vk: "iconsVK.svg",
+      ok: "iconsOK.svg",
+      dzen: "iconsDZ.svg",
+      rutube: "iconsRT.png",
     };
 
-    videosContainer.appendChild(thumbnail);
-  });
+    socialIcons.forEach((icon) => {
+      const img = icon.querySelector("img");
+      const socialType = Object.entries(socialMap).find(([, value]) =>
+        img.src.includes(value)
+      )?.[0];
+
+      if (socialType && person.social[socialType]) {
+        icon.href = person.social[socialType];
+        icon.style.display = "flex";
+      }
+    });
+  }
 
   // Только добавляем класс active для карточки
   cardElement.classList.add("active");
@@ -345,9 +383,12 @@ document.querySelector(".prev-button").addEventListener("click", () => {
   if (currentPersonIndex > 0) {
     const prevPerson = hotspotData[currentPersonIndex - 1];
     // Сначала анимируем камеру к метке
-    globalKrpano.call(
-      `lookto(${prevPerson.ath}, ${prevPerson.atv}, 20, tween(easeInOutQuad, 0.5))`
-    );
+    globalKrpano.call(`
+      getlooktodistance(dist2target, ${prevPerson.ath}, ${prevPerson.atv}, view.hlookat, view.vlookat);
+      lookto(${prevPerson.ath}, ${prevPerson.atv}, calc(dist2target GT view.fov ? dist2target : 0.1), tween(easeInOutSine, 0.5), true, true,
+          lookto(${prevPerson.ath}, ${prevPerson.atv}, 0.1, tween(easeInOutSine, 0.5), false, true)
+      );
+    `);
 
     // Затем показываем карточку с небольшой задержкой
     setTimeout(() => {
@@ -360,9 +401,13 @@ document.querySelector(".next-button").addEventListener("click", () => {
   if (currentPersonIndex < hotspotData.length - 1) {
     const nextPerson = hotspotData[currentPersonIndex + 1];
     // Сначала анимируем камеру к метке
-    globalKrpano.call(
-      `lookto(${nextPerson.ath}, ${nextPerson.atv}, 20, tween(easeInOutQuad, 0.5))`
-    );
+
+    globalKrpano.call(`
+      getlooktodistance(dist2target, ${nextPerson.ath}, ${nextPerson.atv}, view.hlookat, view.vlookat);
+      lookto(${nextPerson.ath}, ${nextPerson.atv}, calc(dist2target GT view.fov ? dist2target : 0.1), tween(easeInOutSine, 0.5), true, true,
+          lookto(${nextPerson.ath}, ${nextPerson.atv}, 0.1, tween(easeInOutSine, 0.5), false, true)
+      );
+    `);
 
     // Затем показываем карточку с небольшой задержкой
     setTimeout(() => {

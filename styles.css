@@ -199,7 +199,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url("./images/bgimg.png");
+  background: url("./images/flagbg.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -221,6 +221,13 @@ body {
   z-index: 1;
 }
 
+.social-icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 20px 0px;
+}
+
 .navigation {
   position: absolute;
   bottom: 0;
@@ -232,6 +239,7 @@ body {
   justify-content: space-between;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  
 }
 
 /* Добавляем новый стиль для фиксированной навигации при активной карточке */
@@ -239,6 +247,7 @@ body {
   position: fixed;
   width: 40%;
   box-sizing: border-box;
+  
 }
 
 .prev-button,

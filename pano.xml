@@ -37,6 +37,8 @@
 		set(hotspot[%1].vcenter, true);
 	</action>
 
-	<!-- <hotspot name="s1" ath="0" atv="0" url="vtourskin_hotspot.png" width="100" height="100"/> -->
+
+
+	<!-- <h<plugin name="textfield" url="%SWFPATH%/plugins/textfield.swf" />otspot name="s1" ath="0" atv="0" url="vtourskin_hotspot.png" width="100" height="100"/> -->
 
 </krpano>

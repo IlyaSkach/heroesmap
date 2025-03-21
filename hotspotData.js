@@ -9,25 +9,28 @@ export const hotspotData = [
     profession: "Спасатель",
     region: "Москва",
     image: "images/Ivan_Petrov.png",
-    rating: 56,
+    social: {
+      telegram: "https://t.me/username1",
+      vk: "https://vk.com/username1",
+      ok: "https://ok.ru/username1",
+      dzen: "https://dzen.ru/username1",
+      rutube: "https://rutube.ru/channel/username1",
+    },
     videos: [
       {
         id: 1,
-        thumbnail: "thumbnails/video1.jpg",
-        videoUrl: "videos/video1.mp4",
-        title: "Название видео 1",
+        videoUrl:
+          "https://rutube.ru/video/323cd8e74b1e344ab274858c53d328e5/?r=wd",
       },
       {
         id: 2,
-        thumbnail: "thumbnails/video2.jpg",
-        videoUrl: "videos/video2.mp4",
-        title: "Название видео 2",
+        videoUrl:
+          "https://rutube.ru/video/323cd8e74b1e344ab274858c53d328e5/?r=wd",
       },
       {
         id: 3,
-        thumbnail: "thumbnails/video3.jpg",
-        videoUrl: "videos/video3.mp4",
-        title: "Название видео 3",
+        videoUrl:
+          "https://rutube.ru/video/323cd8e74b1e344ab274858c53d328e5/?r=wd",
       },
     ],
   },
@@ -41,25 +44,27 @@ export const hotspotData = [
     profession: "Врач",
     region: "Казань",
     image: "images/Ivan_Petrov.png",
-    rating: 57,
+    social: {
+      telegram: "https://t.me/username2",
+      vk: "https://vk.com/username2",
+      ok: "https://ok.ru/username2",
+   
+    },
     videos: [
       {
         id: 1,
-        thumbnail: "thumbnails/video1.jpg",
-        videoUrl: "videos/video1.mp4",
-        title: "Название видео 1",
+        videoUrl:
+          "https://rutube.ru/video/323cd8e74b1e344ab274858c53d328e5/?r=wd",
       },
       {
         id: 2,
-        thumbnail: "thumbnails/video2.jpg",
-        videoUrl: "videos/video2.mp4",
-        title: "Название видео 2",
+        videoUrl:
+          "https://rutube.ru/video/323cd8e74b1e344ab274858c53d328e5/?r=wd",
       },
       {
         id: 3,
-        thumbnail: "thumbnails/video3.jpg",
-        videoUrl: "videos/video3.mp4",
-        title: "Название видео 3",
+        videoUrl:
+          "https://rutube.ru/video/323cd8e74b1e344ab274858c53d328e5/?r=wd",
       },
     ],
   },
@@ -73,25 +78,27 @@ export const hotspotData = [
     profession: "Инженер",
     region: "Екатеренбург",
     image: "images/Ivan_Petrov.png",
-    rating: 58,
+    social: {
+      telegram: "https://t.me/username3",
+  
+      dzen: "https://dzen.ru/username3",
+      rutube: "https://rutube.ru/channel/username3",
+    },
     videos: [
       {
         id: 1,
-        thumbnail: "thumbnails/video1.jpg",
-        videoUrl: "videos/video1.mp4",
-        title: "Название видео 1",
+        videoUrl:
+          "https://rutube.ru/video/323cd8e74b1e344ab274858c53d328e5/?r=wd",
       },
       {
         id: 2,
-        thumbnail: "thumbnails/video2.jpg",
-        videoUrl: "videos/video2.mp4",
-        title: "Название видео 2",
+        videoUrl:
+          "https://rutube.ru/video/323cd8e74b1e344ab274858c53d328e5/?r=wd",
       },
       {
         id: 3,
-        thumbnail: "thumbnails/video3.jpg",
-        videoUrl: "videos/video3.mp4",
-        title: "Название видео 3",
+        videoUrl:
+          "https://rutube.ru/video/323cd8e74b1e344ab274858c53d328e5/?r=wd",
       },
     ],
   },
@@ -106,25 +113,25 @@ export const hotspotData = [
     profession: "Врач",
     region: "Красноярск",
     image: "images/Ivan_Petrov.png",
-    rating: 57,
+    social: {
+      telegram: "https://t.me/username4",
+ 
+    },
     videos: [
       {
         id: 1,
-        thumbnail: "thumbnails/video1.jpg",
-        videoUrl: "videos/video1.mp4",
-        title: "Название видео 1",
+        videoUrl:
+          "https://rutube.ru/video/323cd8e74b1e344ab274858c53d328e5/?r=wd",
       },
       {
         id: 2,
-        thumbnail: "thumbnails/video2.jpg",
-        videoUrl: "videos/video2.mp4",
-        title: "Название видео 2",
+        videoUrl:
+          "https://rutube.ru/video/323cd8e74b1e344ab274858c53d328e5/?r=wd",
       },
       {
         id: 3,
-        thumbnail: "thumbnails/video3.jpg",
-        videoUrl: "videos/video3.mp4",
-        title: "Название видео 3",
+        videoUrl:
+          "https://rutube.ru/video/323cd8e74b1e344ab274858c53d328e5/?r=wd",
       },
     ],
   },

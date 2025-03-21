@@ -17,15 +17,33 @@ body {
 }
 
 #pano {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
 }
 
-.add-hero-button {
+.instruction-text {
   position: fixed;
   top: 20px;
-  left: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  z-index: 1000;
+  text-align: center;
+  font-family: Unbounded", sans-serif;
+  pointer-events: none;
+}
+
+.add-hero-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   z-index: 1000;
   background-color: #dc3545;
   color: white;
@@ -79,8 +97,6 @@ body {
 
 @media screen and (max-width: 768px) {
   .add-hero-button {
-    /* bottom: 20px;
-    right: 20px; */
     padding: 12px 24px;
     font-size: 14px;
   }
@@ -270,7 +286,7 @@ textarea {
 
 /* Общие стили для всех кнопок в модальных окнах */
 .modal button {
-  background-color: #dc3545;
+  background-color: #dc3545 ;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -283,12 +299,16 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 10px auto;
 }
 
 .modal button:hover {
   background-color: #c82333;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.color-button {
+  background-color: #dc3545 !important;
 }
 
 /* Стили для кнопки "Отмена" */
@@ -378,4 +398,64 @@ textarea {
     padding: 15px;
     margin: 15px;
   }
+}
+
+/* Стили для кнопки загрузки файла */
+.custom-file-upload {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: #dc3545;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Скрываем стандартный input */
+.custom-file-upload input[type="file"] {
+    display: none;
+}
+
+/* Стили для иконки */
+.upload-icon {
+    font-size: 18px;
+}
+
+/* Эффекты при наведении */
+.custom-file-upload:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Эффект при нажатии */
+.custom-file-upload:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для превью */
+.image-preview {
+    margin-top: 15px;
+    max-width: 200px;
+    max-height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+    background: white;
+    padding: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image-preview img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block;
 }
